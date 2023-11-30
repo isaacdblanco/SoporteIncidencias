@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.util.Scanner;
 public class GestorIncidencia {
-
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
@@ -55,7 +54,6 @@ public class GestorIncidencia {
 			scanner.close();
 		}
 	}
-
 	private static void mostrarMenu() {
 		System.out.println("----- Menú -----");
 		System.out.println("1. Alta Empleado");
@@ -68,7 +66,6 @@ public class GestorIncidencia {
 		System.out.println("8. Salir");
 		System.out.print("Seleccione una opción: ");
 	}
-
 	// Aca empezamos a definir los metodos
 	private static void altaEmpleado() throws SQLException {
 		ConexionDB.conexionDB();//
@@ -77,7 +74,6 @@ public class GestorIncidencia {
 		ConexionDB.closeConX();
 		System.out.println("Ejecutando Alta Empleado");
 	}
-
 	private static void altaSoporte() throws SQLException {
 		ConexionDB.conexionDB();
 		SoporteServicio sop1 = SoporteServicio.altaSoporte();
@@ -85,14 +81,12 @@ public class GestorIncidencia {
 		ConexionDB.closeConX();
 		System.out.println("Ejecutando Alta Soporte");
 	}
-
 	private static void listarSoportes() throws SQLException {
 		ConexionDB.conexionDB();
 		ConexionDB.listarSoporte();
 		ConexionDB.closeConX();
 		System.out.println("Ejecutando Listar Soportes");
 	}
-
 	private static void altaCliente() throws SQLException {
 		ConexionDB.conexionDB();
 		Cliente cli1 = Cliente.altaCliente();
@@ -100,14 +94,12 @@ public class GestorIncidencia {
 		ConexionDB.closeConX();
 		System.out.println("Ejecutando Alta Cliente");
 	}
-
 	private static void listarEmpleados() throws SQLException {
 		ConexionDB.conexionDB();
 		ConexionDB.listarEmpleado();
 		ConexionDB.closeConX();
 		System.out.println("Ejecutando Listar Empleados");
 	}
-
 	private static void altaTecnico() throws SQLException {
 		ConexionDB.conexionDB();
 		ConexionDB.listarEmpleado();
@@ -118,7 +110,6 @@ public class GestorIncidencia {
 		ConexionDB.closeConX();
 		System.out.println("Ejecutando Alta Técnico");
 	}
-
 	private static void altaIncidente() throws SQLException {
 		ConexionDB.conexionDB();
 		Incidente inc1 = Incidente.altaIncidente();
