@@ -1,73 +1,131 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
-
 public class GestorIncidencia {
 
 	public static void main(String[] args) {
-		
+		Scanner scanner = new Scanner(System.in);
+
 		try {
-							       
-           //**hacer un menu con opciones para: ABM cliente -- Repotar  Incidente--listar técnicos - salir
-			//en un bucle que me permita seguir ejecutando hasta que seleccione salir/terminar
-			//cada llamado funciona bien por separado, cuando se ejecuta todo junto da un error en Scanner
-			//veamos si se soluciona con el menu
+			boolean salir = false;
 
-	       //*******Instancia un empleado nvo
-		   ConexionDB.conexionDB();//
-	       Empleado emp1 = Empleado.altaEmpleado();
-	       ConexionDB.altaEmpleadoDB(emp1);
-	       ConexionDB.closeConX();
-     
-	     /*
-	       //*******Instancia un soporte nvo // 
-	       ConexionDB.conexionDB();
-	       SoporteServicio sop1 = SoporteServicio.altaSoporte();
-      	   ConexionDB.altaSoporteDB(sop1);
-      	   ConexionDB.closeConX();
-	   
-	       //*******Instancia un cliente nvo
-	       //lista de los soportes para que el cliente elija
-      	   ConexionDB.conexionDB();
-		   ConexionDB.listarSoporte();
-		   ConexionDB.closeConX();
+			while (!salir) {
+				mostrarMenu();
+				if (scanner.hasNextInt()){
+				int opcion = scanner.nextInt();
 
-		   ConexionDB.conexionDB();
-	       Cliente cli1 = Cliente.altaCliente();
-	       ConexionDB.altaClienteDB(cli1);
-	       ConexionDB.closeConX();
-	          
-
-	       //*******Instancia un tecnico nvo
-		   //*******LISTA LOS EMPLEADOS
-	       ConexionDB.conexionDB();
-	       ConexionDB.listarEmpleado();
-	       ConexionDB.closeConX();
-		   
-	       //*******BUSCA EMPELADO POR CUIT	
-		   //ConexionDB.buscarEmpleado();
-	       ConexionDB.conexionDB();
-	       Tecnico tec1 = Tecnico.altaTecnico();
-	       ConexionDB.altaTecnicoDB(tec1);
-	       ConexionDB.closeConX();
-	    
-	      
-	       //*******Instancia un incidente nvo
-	       ConexionDB.conexionDB();
-	       Incidente inc1 = Incidente.altaIncidente();
-	       ConexionDB.altaIncidenteDB(inc1);
-	       ConexionDB.closeConX();
-	             */
+				switch (opcion) {
+					case 1:
+						altaEmpleado();
+						break;
+					case 2:
+						altaSoporte();
+						break;
+					case 3:
+						listarSoportes();
+						break;
+					case 4:
+						altaCliente();
+						break;
+					case 5:
+						listarEmpleados();
+						break;
+					case 6:
+						altaTecnico();
+						break;
+					case 7:
+						altaIncidente();
+						break;
+					case 8:
+						salir = true;
+						System.out.println("Gracias Arg Programa. ¡Unos genios!");
+						break;
+					default:
+						System.out.println(" Por favor, ingrese una opción válida(un num de la lista.");
+				}
+			} else {
+					System.out.println("Entrada no válida. Por favor, ingrese un número.");
+					scanner.next(); // Para limpiar el buffer del scanner
+				}
 		}
-		catch(Exception obj) {
-		    	
-		    System.out.println("Error en ABM de la base de datos MAIN");
-		    System.out.println(obj.fillInStackTrace());
-		    }
-
+		} catch (Exception e) {
+			System.out.println("Error en el manejo de incidencias en el programa principal");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			scanner.close();
+		}
 	}
-		
+
+	private static void mostrarMenu() {
+		System.out.println("----- Menú -----");
+		System.out.println("1. Alta Empleado");
+		System.out.println("2. Alta Soporte");
+		System.out.println("3. Listar Soportes");
+		System.out.println("4. Alta Cliente");
+		System.out.println("5. Listar Empleados");
+		System.out.println("6. Alta Técnico");
+		System.out.println("7. Alta Incidente");
+		System.out.println("8. Salir");
+		System.out.print("Seleccione una opción: ");
+	}
+
+	// Aca empezamos a definir los metodos
+	private static void altaEmpleado() throws SQLException {
+		ConexionDB.conexionDB();//
+		Empleado emp1 = Empleado.altaEmpleado();
+		ConexionDB.altaEmpleadoDB(emp1);
+		ConexionDB.closeConX();
+		System.out.println("Ejecutando Alta Empleado");
+	}
+
+	private static void altaSoporte() throws SQLException {
+		ConexionDB.conexionDB();
+		SoporteServicio sop1 = SoporteServicio.altaSoporte();
+		ConexionDB.altaSoporteDB(sop1);
+		ConexionDB.closeConX();
+		System.out.println("Ejecutando Alta Soporte");
+	}
+
+	private static void listarSoportes() throws SQLException {
+		ConexionDB.conexionDB();
+		ConexionDB.listarSoporte();
+		ConexionDB.closeConX();
+		System.out.println("Ejecutando Listar Soportes");
+	}
+
+	private static void altaCliente() throws SQLException {
+		ConexionDB.conexionDB();
+		Cliente cli1 = Cliente.altaCliente();
+		ConexionDB.altaClienteDB(cli1);
+		ConexionDB.closeConX();
+		System.out.println("Ejecutando Alta Cliente");
+	}
+
+	private static void listarEmpleados() throws SQLException {
+		ConexionDB.conexionDB();
+		ConexionDB.listarEmpleado();
+		ConexionDB.closeConX();
+		System.out.println("Ejecutando Listar Empleados");
+	}
+
+	private static void altaTecnico() throws SQLException {
+		ConexionDB.conexionDB();
+		ConexionDB.listarEmpleado();
+		ConexionDB.closeConX();
+		ConexionDB.conexionDB();
+		Tecnico tec1 = Tecnico.altaTecnico();
+		ConexionDB.altaTecnicoDB(tec1);
+		ConexionDB.closeConX();
+		System.out.println("Ejecutando Alta Técnico");
+	}
+
+	private static void altaIncidente() throws SQLException {
+		ConexionDB.conexionDB();
+		Incidente inc1 = Incidente.altaIncidente();
+		ConexionDB.altaIncidenteDB(inc1);
+		ConexionDB.closeConX();
+		System.out.println("Ejecutando Alta Incidente");
+	}
 }
+
 	
